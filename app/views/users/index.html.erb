@@ -9,3 +9,12 @@
   <p><strong>Name</strong><%= user.name%></p>
   <p><storng>Introduction</storng><%= user.introduction%></p>
 <% end %>
+
+<h1>New Book</h1>
+<%= form_with model: @book, url: books_path do |f| %>
+  <label for="inputTitle">Title</label>
+  <%= f.text_field :title, autofocus: true, id:"inputTitle", placeholder:"タイトル"%>
+  <label for="inputBody">Opinion</label>
+  <%= f.text_area :body, id:"inputBody", placeholder: "感想" %>  
+  <%= f.submit "Create Book" %>
+<% end %>
