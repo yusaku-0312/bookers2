@@ -1,6 +1,51 @@
-<h1>book show</h1>
-<p><%= @book.title %></p>
-<p><%= @book.body %></p>
-
-<%= link_to "Edit", edit_book_path(@book.id) %> 
-<%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %> 
+<div class="container">
+  <div class="row">
+    <%= render "form", user: @user, new_book: @new_book %>
+    <div class="col-8 py-3 ml-4">
+      <div class="p-3">
+        <h2>Book detail</h2>
+        <hr>
+        <div class="row">
+          <div class="col-2">
+              <div class="mx-auto">
+                  <%= image_tag @book.user.get_profile_image(100, 100) %>
+              </div>
+              <div class="mx-auto">
+                  <%= link_to user_path(@user.id) do %>
+                  <%= @user.name %>
+                  <% end %>                
+              </div>
+          </div>
+          <div class="col-3">
+              <p>
+                  <%= link_to book_path(@book.id) do %>
+                  <%= @book.title %>
+                  <% end %>                    
+              </p>
+          </div>
+          <div class="col-6">
+              <p><%= @book.body %></p>         
+          </div>
+          <% if @user == current_user %>
+          <div class="col-1 d-flex">
+            <div>
+               <%= link_to edit_book_path(@book.id) do %>
+                <button type="button" class="btn btn-success mr-4 align-items-center">
+                  <p>Edit</p>
+                </button>
+              <% end %>
+            </div>
+            <div>
+               <%= link_to book_path(@book.id), method: :delete do %>
+                <button type="button" class="btn btn-danger align-items-center">
+                  <p>Destroy</p>
+                </button>
+              <% end %>
+            </div>
+          </div>                
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

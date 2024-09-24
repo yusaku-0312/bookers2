@@ -1,4 +1,31 @@
-<h1>Users#show</h1>
-<p><%= image_tag @user.get_profile_image(100, 100), class:"mt-3 rounded-circle"; %></p>
-<p><strong>Name</strong><%= @user.name%></p>
-<p><storng>Introduction</storng><%= @user.introduction%></p>
+<div class="container">
+  <div class="row">
+    <%= render "/books/form", user: @user, new_book: @new_book %>
+    <div class="col-8 py-3 ml-4">
+      <div class="p-3">
+        <h2>Books</h2>
+        <table class="table d-flex">
+          <tbody>
+            <tr>
+              <th></th>
+              <th>Title</th>
+              <th>Opinion</th>
+            </tr>
+            <% @books.each do |book| %>
+              <tr>
+                <td><%= image_tag book.user.get_profile_image(100, 100) %></td>
+                <td class="mx-0 px-0">
+                  <%= link_to book_path(book.id) do %>
+                  <%= book.title %>
+                  <% end %>
+                </td>
+                <td><%= book.body %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
