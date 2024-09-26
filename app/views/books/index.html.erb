@@ -1,6 +1,19 @@
 <div class="container">
+  <div class="pt-4">
+    <% if @book.errors.any? %>
+      <% if @book.errors.count== 1 %> 
+        <h2><%= @book.errors.count %> error prohibited this obj from being saved:</h2>
+      <% else %>
+        <h2><%= @book.errors.count %> errors prohibited this obj from being saved:</h2>
+      <% end %>
+      <ul>
+        <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
   <div class="row">
-    <!--バリデーション-->
     <%= render "form", user: @user, new_book: @book %>
     <div class="col-8 py-3 ml-4">
       <div class="p-3">
