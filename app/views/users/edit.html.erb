@@ -1,10 +1,26 @@
-<h1>Users#edit</h1>
-<%= form_with model: @user do |f| %>
-  <label for="inputName">Name</label> 
-  <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前"%>
-  <label for="inputImage">ProfileImage</label>
-  <%= f.file_field :profile_image, placeholder:"プロフィール画像", accept:"image/*" %>  
-  <label for="inputIntroduction">Introduction</label>
-  <%= f.text_area :introduction, id:"inputIntroduction", placeholder: "自己紹介" %>  
-  <%= f.submit "変更を保存" %>
-<% end %>
+<div class="container">
+  <div class="row d-flex flex-column justify-content-center">
+    <div class="col-6 mx-auto mt-4"> 
+    <h1>User info</h1>
+    <!--バリデーション挿入-->
+      <%= form_with model: @user do |f| %>
+        <div class="mb-3">
+          <label class="d-block" for="inputName">Name</label>
+          <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前", class: "w-100"%>      
+        </div>
+        <div class="mb-3">
+          <label class="d-block" for="inputImage">ProfileImage</label>
+          <%= f.file_field :profile_image, placeholder:"プロフィール画像", accept:"image/*" %>      
+        </div>
+        <div class="mb-3">
+          <label class="d-block" for="inputIntroduction">Introduction</label>
+          <%= f.text_area :introduction, id:"inputIntroduction", placeholder: "自己紹介", class: "d-block w-100" %>     
+        </div>
+        <div class="mb-3">
+          
+          <%= f.submit "Update User", class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
