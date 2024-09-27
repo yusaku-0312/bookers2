@@ -18,7 +18,7 @@
     <div class="col-8 py-3 ml-4">
       <div class="p-3">
         <h2>Books</h2>
-        <table class="table d-flex">
+        <table class="table d-flex table-hover table-inverse">
           <tbody>
             <tr>
               <th></th>
@@ -27,7 +27,11 @@
             </tr>
             <% @books.each do |book| %>
               <tr>
-                <td><%= image_tag book.user.get_profile_image(100, 100) %></td>
+                <td>
+                  <%= link_to user_path(book.user_id) do %>
+                    <%= image_tag book.user.get_profile_image(100, 100) %>
+                  <% end %>
+                </td>
                 <td class="mx-0 px-0">
                   <%= link_to book_path(book.id) do %>
                   <%= book.title %>
