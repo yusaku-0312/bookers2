@@ -15,15 +15,15 @@
   </div>
   <div class="row">
     <%= render "form", user: @user, new_book: @book %>
-    <div class="col-8 py-3 ml-4">
+    <div class="col-md-8 py-3 ml-4 offset-md-1">
       <div class="p-3">
         <h2>Books</h2>
         <table class="table d-flex table-hover table-inverse">
           <tbody>
             <tr>
-              <th></th>
-              <th>Title</th>
-              <th>Opinion</th>
+              <th class="w-50"></th>
+              <th class="w-10">Title</th>
+              <th class="w-40">Opinion</th>
             </tr>
             <% @books.each do |book| %>
               <tr>
