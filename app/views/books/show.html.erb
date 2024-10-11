@@ -26,7 +26,22 @@
           <div class="col-4">
             <p><%= @book.body %></p>         
           </div>
-          <div class="col-2">
+          <div class="col-1">
+            <% if @book.favorited_by?(current_user) %>
+              <p>
+                <%= link_to book_favorite_path(@book.id), method: :delete do %>
+                  ♥<%= @book.favorites.count %>
+                <% end %>
+              </p>
+              <% else %>
+              <p>
+                <%= link_to book_favorite_path(@book.id), method: :post do %>
+                  ♡<%= @book.favorites.count %>
+                <% end %>
+              </p>
+            <% end %>
+          </div>
+          <div class="col-1">
             <p>コメント数: <%= @book.post_comments.count %></p>
           </div>
           <% if @user == current_user %>
