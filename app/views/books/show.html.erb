@@ -18,13 +18,16 @@
           </div>
           <div class="col-3">
               <p>
-                  <%= link_to book_path(@book.id) do %>
-                  <%= @book.title %>
-                  <% end %>                    
+                <%= link_to book_path(@book.id) do %>
+                <%= @book.title %>
+                <% end %>                    
               </p>
           </div>
-          <div class="col-6">
-              <p><%= @book.body %></p>         
+          <div class="col-4">
+            <p><%= @book.body %></p>         
+          </div>
+          <div class="col-2">
+            <p>コメント数: <%= @book.post_comments.count %></p>
           </div>
           <% if @user == current_user %>
           <div class="col-1 d-flex">
@@ -43,6 +46,26 @@
               <% end %>
             </div>
           </div>                
+          <% end %>
+        </div>
+        <div>
+          <% @book.post_comments.each do |book_comment| %>
+            <p><%= image_tag book_comment.user.get_profile_image(100, 100) %></p>
+            <%= book_comment.user.name %>
+            <%= book_comment.comment %>
+            <% if current_user.id == book_comment.user.id %>
+              <%= link_to book_post_comment_path(@book.id, book_comment.id), method: :delete do %>
+                <button type="button" class="btn btn-danger align-items-center">
+                  <p>Destroy</p>
+                </button>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+        <div>
+          <%= form_with model: [@book, @post_comment] do |f| %>
+            <%= f.text_area :comment, rows: '5' %>
+            <%= f.submit "送信する" %>
           <% end %>
         </div>
       </div>

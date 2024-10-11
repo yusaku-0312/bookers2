@@ -1,8 +1,8 @@
 class BooksController < ApplicationController
-  
+
   before_action :is_matching_login_user, only: [:edit]
   before_action :move_to_sign_in
-  
+
   def new
     @book = Book.new
   end
@@ -18,7 +18,7 @@ class BooksController < ApplicationController
     @book.user_id = current_user.id
     if @book.save
       flash[:notice] = "You have created book successfully."
-      
+
       redirect_to book_path(@book.id)
     else
       @user = @book.user
@@ -30,7 +30,7 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     @user = @book.user
-    
+    @post_comment = PostComment.new
     @new_book = Book.new
 
   end
@@ -61,7 +61,7 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :body, :user_id)
   end
-  
+
   def is_matching_login_user
     book = Book.find(params[:id])
     user = User.find(book.user_id)
@@ -73,11 +73,11 @@ class BooksController < ApplicationController
       redirect_to new_user_session_path
     end
   end
-  
+
   def move_to_sign_in
     unless user_signed_in?
       redirect_to new_user_session_path
     end
   end
-  
+
 end
