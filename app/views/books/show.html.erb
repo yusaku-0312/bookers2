@@ -16,14 +16,14 @@
                   <% end %>                
               </div>
           </div>
-          <div class="col-3">
+          <div class="col-2">
               <p>
                 <%= link_to book_path(@book.id) do %>
                 <%= @book.title %>
                 <% end %>                    
               </p>
           </div>
-          <div class="col-4">
+          <div class="col-3">
             <p><%= @book.body %></p>         
           </div>
           <div class="col-1">
@@ -41,7 +41,7 @@
               </p>
             <% end %>
           </div>
-          <div class="col-1">
+          <div class="col-3">
             <p>コメント数: <%= @book.post_comments.count %></p>
           </div>
           <% if @user == current_user %>
@@ -63,23 +63,27 @@
           </div>                
           <% end %>
         </div>
-        <div>
+        <div class="row">
           <% @book.post_comments.each do |book_comment| %>
-            <p><%= image_tag book_comment.user.get_profile_image(100, 100) %></p>
-            <%= book_comment.user.name %>
-            <%= book_comment.comment %>
-            <% if current_user.id == book_comment.user.id %>
-              <%= link_to book_post_comment_path(@book.id, book_comment.id), method: :delete do %>
-                <button type="button" class="btn btn-danger align-items-center">
-                  <p>Destroy</p>
-                </button>
+            <div class="col-3">
+              <p><%= image_tag book_comment.user.get_profile_image(100, 100) %></p>
+              <%= link_to book_comment.user.name, user_path(book_comment.user.id) %>
+            </div>
+            <div class="col-7">
+              <%= book_comment.comment %>
+              <% if current_user.id == book_comment.user.id %>
+                <%= link_to book_post_comment_path(@book.id, book_comment.id), method: :delete do %>
+                  <button type="button" class="btn btn-danger align-items-center">
+                    <p>Destroy</p>
+                  </button>
+                <% end %>
               <% end %>
-            <% end %>
+            </div>
           <% end %>
         </div>
         <div>
           <%= form_with model: [@book, @post_comment] do |f| %>
-            <%= f.text_area :comment, rows: '5' %>
+            <%= f.text_area :comment, rows: '5', class: "w-100" %>
             <%= f.submit "送信する" %>
           <% end %>
         </div>
