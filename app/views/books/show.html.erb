@@ -42,7 +42,7 @@
             <% end %>
           </div>
           <div class="col-3">
-            <p>コメント数: <%= @book.post_comments.count %></p>
+            <p>コメント数: <%= @book.book_comments.count %></p>
           </div>
           <% if @user == current_user %>
           <div class="col-1 d-flex">
@@ -64,7 +64,7 @@
           <% end %>
         </div>
         <div class="row">
-          <% @book.post_comments.each do |book_comment| %>
+          <% @book.book_comments.each do |book_comment| %>
             <div class="col-3">
               <p><%= image_tag book_comment.user.get_profile_image(100, 100) %></p>
               <%= link_to book_comment.user.name, user_path(book_comment.user.id) %>
@@ -72,7 +72,7 @@
             <div class="col-7">
               <%= book_comment.comment %>
               <% if current_user.id == book_comment.user.id %>
-                <%= link_to book_post_comment_path(@book.id, book_comment.id), method: :delete do %>
+                <%= link_to book_book_comment_path(@book.id, book_comment.id), method: :delete do %>
                   <button type="button" class="btn btn-danger align-items-center">
                     <p>Destroy</p>
                   </button>
@@ -82,7 +82,7 @@
           <% end %>
         </div>
         <div>
-          <%= form_with model: [@book, @post_comment] do |f| %>
+          <%= form_with model: [@book, @book_comment] do |f| %>
             <%= f.text_area :comment, rows: '5', class: "w-100" %>
             <%= f.submit "送信する" %>
           <% end %>
